@@ -1,10 +1,12 @@
 package com.example.direccio.myapplication;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -15,7 +17,6 @@ import static android.R.id.list;
 
 public class Principal extends MainActivity {
     private BookData bookData;
-    private ListActivity listActivity;
     private ListView listView;
     public static final int THIS_ACTIVITY = 1;
 
@@ -28,21 +29,16 @@ public class Principal extends MainActivity {
         bookData = new BookData(this);
         //ens permet llegir a la database
         bookData.open();
-        listActivity = new ListActivity();
-        /*//this.listActivity = listActivity;
-        //View emptyView = findViewById(R.id.empty);
-        //listView = ((ListView)findViewById(com.android.internal.R.id.list));
-        if(listActivity.getListView()) {
-            listActivity = new ListActivity();
-            List<Book> values = bookData.getAllBooks();
-            ArrayAdapter<Book> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, values);
-            listActivity.setListAdapter(adapter);
-        }
-       // if (emptyView != null) {
-         //  listView.setEmptyView(emptyView);
-        //}*/
+        List<Book> values = bookData.getAllBooks();
+        // use the SimpleCursorAdapter to show the
+        // elements in a ListView
 
+        listView = (ListView) findViewById(android.R.id.list);
+
+        ArrayAdapter<Book> adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, values);
+        listView.setAdapter(adapter);
     }
+
 
     // Basic method to add pseudo-random list of books so that
     // you have an example of insertion and deletion
@@ -51,7 +47,7 @@ public class Principal extends MainActivity {
     // of the buttons in main.xml
     public void onClick(View view) {
         @SuppressWarnings("unchecked")
-        ArrayAdapter<Book> adapter = (ArrayAdapter<Book>) listActivity.getListAdapter();
+        ArrayAdapter<Book> adapter = (ArrayAdapter<Book>) listView.getAdapter();
         Book book;
         switch (view.getId()) {
             case R.id.add:
@@ -64,14 +60,18 @@ public class Principal extends MainActivity {
                 adapter.add(book);
                 break;
             case R.id.delete:
-                if (listActivity.getListAdapter().getCount() > 0) {
-                    book = (Book) listActivity.getListAdapter().getItem(0);
+                if (listView.getAdapter().getCount() > 0) {
+                    book = (Book) listView.getAdapter().getItem(0);
                     bookData.deleteBook(book);
                     adapter.remove(book);
                 }
                 break;
         }
         adapter.notifyDataSetChanged();
+    }
+    public void searchActivity (View view) {
+        Intent intent = new Intent(this, RecyclerActivity.class);
+        startActivity(intent);
     }
 
     // Life cycle methods. Check whether it is necessary to reimplement them
