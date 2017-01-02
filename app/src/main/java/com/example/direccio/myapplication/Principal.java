@@ -2,6 +2,7 @@ package com.example.direccio.myapplication;
 
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -30,13 +31,21 @@ public class Principal extends MainActivity {
         //ens permet llegir a la database
         bookData.open();
         List<Book> values = bookData.getAllBooks();
+        System.out.println("AQUIIIIIIIIIIIII"+values);
         // use the SimpleCursorAdapter to show the
         // elements in a ListView
-
         listView = (ListView) findViewById(android.R.id.list);
-
-        ArrayAdapter<Book> adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, values);
+        ArrayAdapter<Book> adapter = new ArrayAdapter<>(this,android.R.layout.simple_selectable_list_item,values);
+        //simple_list_item_1
+        adapter.addAll(values);
+        adapter.sort(new Comparator<Book>() {
+            @Override
+            public int compare(Book lhs, Book rhs) {
+                return lhs.getTitle().compareTo(rhs.getTitle());
+            }
+        });
         listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
 
@@ -45,7 +54,7 @@ public class Principal extends MainActivity {
 
     // Will be called via the onClick attribute
     // of the buttons in main.xml
-    public void onClick(View view) {
+   /* public void onClick(View view) {
         @SuppressWarnings("unchecked")
         ArrayAdapter<Book> adapter = (ArrayAdapter<Book>) listView.getAdapter();
         Book book;
@@ -72,7 +81,7 @@ public class Principal extends MainActivity {
     public void searchActivity (View view) {
         Intent intent = new Intent(this, RecyclerActivity.class);
         startActivity(intent);
-    }
+    }*/
 
     // Life cycle methods. Check whether it is necessary to reimplement them
 

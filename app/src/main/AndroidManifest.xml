@@ -20,6 +20,8 @@
         </activity>
         <activity android:name=".RecyclerActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Cercar"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>

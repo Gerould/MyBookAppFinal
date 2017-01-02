@@ -18,7 +18,7 @@ public class RecyclerActivity extends MainActivity {
         setContentView(R.layout.activity_recycler);
 
         setTitle("Books sort by category");
-        checkMenuItem(1);
+        checkMenuItem(2);
 
         bookData = new BookData(this);
         bookData.open();

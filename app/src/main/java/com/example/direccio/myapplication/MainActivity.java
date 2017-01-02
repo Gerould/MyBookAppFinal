@@ -17,8 +17,8 @@ import android.widget.FrameLayout;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-    /*@Override
+/*
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -104,6 +104,9 @@ public class MainActivity extends AppCompatActivity
     public static final int ACTIVITY_1 = 1;
     public static final int ACTIVITY_2 = 2;
     public static final int ACTIVITY_3 = 3;
+    public static final int ACTIVITY_4 = 4;
+    public static final int ACTIVITY_5 = 5;
+    public static final int ACTIVITY_6 = 6;
     private NavigationView navigationView;
     private DrawerLayout drawer;
 
@@ -142,6 +145,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_recycler:
                 startActivity(new Intent(getApplicationContext(),RecyclerActivity.class));
                 break;
+            case R.id.nav_search:
+                startActivity(new Intent(getApplicationContext(),Cercar.class));
+                break;
         }
 
 
@@ -158,14 +164,19 @@ public class MainActivity extends AppCompatActivity
 
         getLayoutInflater().inflate(layoutResID, frameLayout, true);
 
-
         super.setContentView(fullLayout);
+
+
+
         setView();
     }
 
     public void checkMenuItem(int activity) {
         if (activity == ACTIVITY_1) navigationView.setCheckedItem(R.id.nav_main);
         if (activity == ACTIVITY_2) navigationView.setCheckedItem(R.id.nav_recycler);
-        //if (activity == ACTIVITY_3) navigationView.setCheckedItem(R.id.activity3);
+        if (activity == ACTIVITY_3) navigationView.setCheckedItem(R.id.nav_new);
+        if (activity == ACTIVITY_4) navigationView.setCheckedItem(R.id.nav_search);
+        if (activity == ACTIVITY_5) navigationView.setCheckedItem(R.id.nav_help);
+        if (activity == ACTIVITY_6) navigationView.setCheckedItem(R.id.nav_about);
     }
 }
