@@ -108,4 +108,21 @@ public class BookData {
         book.setAuthor(cursor.getString(2));
         return book;
     }
+
+    public List<Book> getBooks(String author) {
+        List<Book> books = new ArrayList<>();
+
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_BOOKS,
+                allColumns, null, null, null, null, null );
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Book book = cursorToBook(cursor);
+            if (book.getAuthor().equals(author)) books.add(book);
+            cursor.moveToNext();
+        }
+        // make sure to close the cursor
+        cursor.close();
+        return books;
+    }
 }
