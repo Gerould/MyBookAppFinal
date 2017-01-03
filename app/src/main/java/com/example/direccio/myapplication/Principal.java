@@ -30,14 +30,20 @@ public class Principal extends MainActivity {
         bookData = new BookData(this);
         //ens permet llegir a la database
         bookData.open();
+
+      /*  bookData.createBook("Miguel Strogoff", "Jules Verne");
+        bookData.createBook("Ulysses", "James Joyce");
+        bookData.createBook("Don Quijote", "Miguel de Cervantes");
+        bookData.createBook("Metamorphosis", "Kafka");*/
+
         List<Book> values = bookData.getAllBooks();
-        System.out.println("AQUIIIIIIIIIIIII"+values);
+
+       // System.out.println("AQUIIIIIIIIIIIII"+values);
         // use the SimpleCursorAdapter to show the
         // elements in a ListView
         listView = (ListView) findViewById(android.R.id.list);
-        ArrayAdapter<Book> adapter = new ArrayAdapter<>(this,android.R.layout.simple_selectable_list_item,values);
-        //simple_list_item_1
-        adapter.addAll(values);
+        ArrayAdapter<Book> adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,values);
+        //adapter.addAll(values);
         adapter.sort(new Comparator<Book>() {
             @Override
             public int compare(Book lhs, Book rhs) {
@@ -45,7 +51,7 @@ public class Principal extends MainActivity {
             }
         });
         listView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        //adapter.notifyDataSetChanged();
     }
 
 
@@ -77,12 +83,7 @@ public class Principal extends MainActivity {
                 break;
         }
         adapter.notifyDataSetChanged();
-    }
-    public void searchActivity (View view) {
-        Intent intent = new Intent(this, RecyclerActivity.class);
-        startActivity(intent);
     }*/
-
     // Life cycle methods. Check whether it is necessary to reimplement them
 
     @Override

@@ -86,7 +86,6 @@ public class BookData {
 
     public List<Book> getAllBooks() {
         List<Book> books = new ArrayList<>();
-
         Cursor cursor = database.query(MySQLiteHelper.TABLE_BOOKS,
                 allColumns, null, null, null, null, null);
 
