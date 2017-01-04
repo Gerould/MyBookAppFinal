@@ -24,9 +24,9 @@ public class RecyclerActivity extends MainActivity {
         bookData.open();
         List<Book> values = bookData.getAllBooks();
 
-        Book book = new Book();
-        book = bookData.createBook("Ring Men", "Rowling");
-        values.add(book);
+       // Book book = new Book();
+        //book = bookData.createBook("Ring Men", "Rowling");
+        //values.add(book);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
         //els numero de items del recycler es dinamic per aixo fico false

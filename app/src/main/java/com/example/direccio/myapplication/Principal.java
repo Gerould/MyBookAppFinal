@@ -1,25 +1,30 @@
 package com.example.direccio.myapplication;
 
 
-import java.util.ArrayList;
+
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
-
-import static android.R.id.list;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 
 public class Principal extends MainActivity {
     private BookData bookData;
     private ListView listView;
     public static final int THIS_ACTIVITY = 1;
+    private static int pos;
+    private List<Book> values;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,28 +36,55 @@ public class Principal extends MainActivity {
         //ens permet llegir a la database
         bookData.open();
 
-      /*  bookData.createBook("Miguel Strogoff", "Jules Verne");
+       /* bookData.createBook("Miguel Strogoff", "Jules Verne");
         bookData.createBook("Ulysses", "James Joyce");
         bookData.createBook("Don Quijote", "Miguel de Cervantes");
         bookData.createBook("Metamorphosis", "Kafka");*/
 
-        List<Book> values = bookData.getAllBooks();
+        values = bookData.getAllBooks();
 
-       // System.out.println("AQUIIIIIIIIIIIII"+values);
         // use the SimpleCursorAdapter to show the
         // elements in a ListView
         listView = (ListView) findViewById(android.R.id.list);
         ArrayAdapter<Book> adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,values);
         //adapter.addAll(values);
-        adapter.sort(new Comparator<Book>() {
-            @Override
-            public int compare(Book lhs, Book rhs) {
-                return lhs.getTitle().compareTo(rhs.getTitle());
-            }
-        });
+
         listView.setAdapter(adapter);
         //adapter.notifyDataSetChanged();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                pos = position;
+                showPopupMenu(view);
+            }
+        });
+
     }
+
+    public void showPopupMenu(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.popup_menu, popup.getMenu());
+        popup.show();
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener(){
+            public boolean onMenuItemClick(MenuItem item){
+                switch(item.getItemId()) {
+                    case R.id.btn_canviar:
+                        Intent intent = new Intent(getApplicationContext(), PersonalEvaluation.class);
+                        intent.putExtra("titulo_libro",values.get(pos).getTitle());
+                        intent.putExtra("id_libro",values.get(pos).getId());
+                        startActivity(intent);
+                        return true;
+                    case R.id.btn_eliminar:
+                        Toast.makeText(getBaseContext(), "eliminas "+  values.get(pos).getTitle(), Toast.LENGTH_SHORT).show();
+                        return true;
+                    default: return false;
+                }
+            }
+        });
+    }
+
+
 
 
     // Basic method to add pseudo-random list of books so that
@@ -85,6 +117,7 @@ public class Principal extends MainActivity {
         adapter.notifyDataSetChanged();
     }*/
     // Life cycle methods. Check whether it is necessary to reimplement them
+
 
     @Override
     protected void onResume() {

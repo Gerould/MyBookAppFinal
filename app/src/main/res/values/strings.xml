@@ -5,4 +5,12 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string-array name="valores_array">
+        <item>Very good</item>
+        <item>Good</item>
+        <item>Ordinary</item>
+        <item>Bad</item>
+        <item>Very bad</item>
+    </string-array>
 </resources>

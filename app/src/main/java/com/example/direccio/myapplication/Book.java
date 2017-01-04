@@ -70,6 +70,8 @@ public class Book {
     }
 
     public void setPersonal_evaluation(String personal_evaluation) {
+        System.out.println("BOOOK ant -----------" + this.personal_evaluation);
+        System.out.println("BOOOK nuev -----------" + personal_evaluation);
         this.personal_evaluation = personal_evaluation;
     }
 

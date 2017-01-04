@@ -24,8 +24,9 @@ public class BookData {
     private MySQLiteHelper dbHelper;
 
     // Here we only select Title and Author, must select the appropriate columns
-    private String[] allColumns = { MySQLiteHelper.COLUMN_ID,
-            MySQLiteHelper.COLUMN_TITLE, MySQLiteHelper.COLUMN_AUTHOR};
+    private String[] allColumns = {MySQLiteHelper.COLUMN_ID,
+            MySQLiteHelper.COLUMN_TITLE, MySQLiteHelper.COLUMN_AUTHOR, MySQLiteHelper.COLUMN_PUBLISHER, MySQLiteHelper.COLUMN_YEAR,
+            MySQLiteHelper.COLUMN_CATEGORY, MySQLiteHelper.COLUMN_PERSONAL_EVALUATION};
 
     public BookData(Context context) {
         dbHelper = new MySQLiteHelper(context);
@@ -87,12 +88,13 @@ public class BookData {
     public List<Book> getAllBooks() {
         List<Book> books = new ArrayList<>();
         Cursor cursor = database.query(MySQLiteHelper.TABLE_BOOKS,
-                allColumns, null, null, null, null, null);
+                allColumns, null, null, null, null, MySQLiteHelper.COLUMN_TITLE+" ASC");
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             Book book = cursorToBook(cursor);
             books.add(book);
+            //deleteBook(book);
             cursor.moveToNext();
         }
         // make sure to close the cursor
@@ -105,23 +107,60 @@ public class BookData {
         book.setId(cursor.getLong(0));
         book.setTitle(cursor.getString(1));
         book.setAuthor(cursor.getString(2));
+        book.setPublisher(cursor.getString(3));
+        book.setYear(cursor.getInt(4));
+        book.setCategory(cursor.getString(5));
+        book.setPersonal_evaluation(cursor.getString(6));
+
         return book;
     }
 
     public List<Book> getBooks(String author) {
         List<Book> books = new ArrayList<>();
 
+        String[] where = {author};
         Cursor cursor = database.query(MySQLiteHelper.TABLE_BOOKS,
-                allColumns, null, null, null, null, null );
+                allColumns, "author=?", where, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             Book book = cursorToBook(cursor);
-            if (book.getAuthor().equals(author)) books.add(book);
+            books.add(book);
             cursor.moveToNext();
         }
         // make sure to close the cursor
         cursor.close();
         return books;
+    }
+
+    public Book getBook(long id) {
+        boolean notfound = true;
+        //Book libro = new Book();
+
+        String[] where = {id+""};
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_BOOKS,
+                allColumns, "_id=?", where, null, null, null);
+
+        cursor.moveToFirst();
+        //while (!cursor.isAfterLast() && notfound) {
+            Book book = cursorToBook(cursor);
+           /* if (book.getId() == id) {
+                libro = book;
+                notfound = false;
+            }*/
+           // cursor.moveToNext();
+        //}
+        // make sure to close the cursor
+        cursor.close();
+        return book;
+    }
+
+    public int update_personalEv(Book b, String personal_evaluation) {
+        b.setPersonal_evaluation(personal_evaluation);
+        String [] where = {b.getId()+""};
+        ContentValues values = new ContentValues();
+        values.put("personal_evaluation", personal_evaluation);
+        int n = database.update(MySQLiteHelper.TABLE_BOOKS, values,"_id=?", where);
+        return n;
     }
 }
