@@ -62,6 +62,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_recycler:
                 startActivity(new Intent(getApplicationContext(),RecyclerActivity.class));
                 break;
+            case R.id.nav_new:
+                startActivity(new Intent(getApplicationContext(),CustomaddActivity.class));
+                break;
             case R.id.nav_search:
                 startActivity(new Intent(getApplicationContext(),Cercar.class));
                 break;

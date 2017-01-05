@@ -41,7 +41,7 @@ public class Principal extends MainActivity {
         bookData.createBook("Don Quijote", "Miguel de Cervantes");
         bookData.createBook("Metamorphosis", "Kafka");*/
 
-        values = bookData.getAllBooks();
+        values = bookData.getAllBooks_title();
 
         // use the SimpleCursorAdapter to show the
         // elements in a ListView

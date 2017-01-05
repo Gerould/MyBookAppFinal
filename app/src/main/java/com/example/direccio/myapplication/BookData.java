@@ -40,7 +40,7 @@ public class BookData {
         dbHelper.close();
     }
 
-    public Book createBook(String title, String author) {
+    public Book createBook(String title, String author, String publisher, int year, String category, String personal_evaluation) {
         ContentValues values = new ContentValues();
         Log.d("Creating", "Creating " + title + " " + author);
 
@@ -48,12 +48,10 @@ public class BookData {
         // Must modify the method to add the full data
         values.put(MySQLiteHelper.COLUMN_TITLE, title);
         values.put(MySQLiteHelper.COLUMN_AUTHOR, author);
-
-        // Invented data
-        values.put(MySQLiteHelper.COLUMN_PUBLISHER, "Do not know");
-        values.put(MySQLiteHelper.COLUMN_YEAR, 2030);
-        values.put(MySQLiteHelper.COLUMN_CATEGORY, "Fantasia");
-        values.put(MySQLiteHelper.COLUMN_PERSONAL_EVALUATION, "regular");
+        values.put(MySQLiteHelper.COLUMN_PUBLISHER, publisher);
+        values.put(MySQLiteHelper.COLUMN_YEAR, year);
+        values.put(MySQLiteHelper.COLUMN_CATEGORY, category);
+        values.put(MySQLiteHelper.COLUMN_PERSONAL_EVALUATION, personal_evaluation);
 
         // Actual insertion of the data using the values variable
         long insertId = database.insert(MySQLiteHelper.TABLE_BOOKS, null,
@@ -85,7 +83,7 @@ public class BookData {
                 + " = " + id, null);
     }
 
-    public List<Book> getAllBooks() {
+    public List<Book> getAllBooks_title() {
         List<Book> books = new ArrayList<>();
         Cursor cursor = database.query(MySQLiteHelper.TABLE_BOOKS,
                 allColumns, null, null, null, null, MySQLiteHelper.COLUMN_TITLE+" ASC");
@@ -95,6 +93,23 @@ public class BookData {
             Book book = cursorToBook(cursor);
             books.add(book);
             //deleteBook(book);
+            cursor.moveToNext();
+        }
+        // make sure to close the cursor
+        cursor.close();
+        return books;
+    }
+
+    public List<Book> getAllBooks() {
+        List<Book> books = new ArrayList<>();
+
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_BOOKS,
+                allColumns, null, null, null, null, MySQLiteHelper.COLUMN_CATEGORY+" ASC");
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Book book = cursorToBook(cursor);
+            books.add(book);
             cursor.moveToNext();
         }
         // make sure to close the cursor
