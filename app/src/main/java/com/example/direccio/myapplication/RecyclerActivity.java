@@ -72,7 +72,7 @@ public class RecyclerActivity extends MainActivity implements SearchView.OnQuery
                 books.add(book);
         }
 
-        adapter.setFilter(books);
+        adapter.setFilter(books, recyclerView);
         return true;
     }
 

@@ -14,28 +14,72 @@
         app:cardCornerRadius="8dp"
         android:background="#9E9E9E"
         android:id="@+id/cardview">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:background="#9E9E9E">
 
-    <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/author" />
+        <RelativeLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal"
+             android:padding="8dp"
+             android:background="#9E9E9E">
 
-        <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/author"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="18dp"
-            android:id="@+id/category" />
+                <ImageView
+                    android:layout_width="94dp"
+                    android:layout_height="92dp"
+                    android:id="@+id/image"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/booknegre"/>
 
-    </RelativeLayout>
+
+            <TextView
+                android:text="  Category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/category"
+                android:layout_below="@+id/evaluation"
+                android:layout_toEndOf="@+id/image"
+                android:layout_marginStart="19dp" />
+
+            <TextView
+                android:text="  Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/title"
+                android:layout_alignParentTop="true"
+                android:layout_alignStart="@+id/category" />
+
+            <TextView
+                        android:text="  Author"
+                android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/author"
+                android:layout_below="@+id/title"
+                android:layout_alignStart="@+id/title" />
+
+            <TextView
+                        android:text="  Year"
+                android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/year"
+                android:layout_below="@+id/author"
+                android:layout_alignStart="@+id/author" />
+
+            <TextView
+                        android:text="  Publisher"
+                android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/publisher"
+                android:layout_below="@+id/year"
+                android:layout_alignStart="@+id/year" />
+
+            <TextView
+                        android:text="  Evaluation"
+                android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/evaluation"
+                android:layout_below="@+id/publisher"
+                android:layout_alignStart="@+id/category" />
+
+        </RelativeLayout>
 
     </android.support.v7.widget.CardView>
 

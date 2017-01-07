@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Book Database</string>
+    <string name="app_name">My Book App</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -13,4 +13,48 @@
         <item>Bad</item>
         <item>Very bad</item>
     </string-array>
+
+    <string name="help_menu">
+        En el menú trobaràs les següents opcions:\n\n
+            * \'Principal\': On podràs trobar tota la llista de llibres que hi ha a la base de dades ordenada per títol. \n
+            * \'Books sort by category\': On podràs trobar tota la llista de llibres (amb tota la informació de cadascú) ordenada per categoria.\n
+            * \'New book\': On podràs crear un nou llibre. \n
+            * \'Help\': On trobarás la informació necessaria per poder utilitzar l\'aplicació. \n
+            * \'About\': On trobarás informació sobre els creadors de l\'aplicació.
+    </string>
+
+    <string name="help_search">
+        Per fer una cerca el que has de fer és accedir a qualsevol de les dues primeres opcions del menú (\'Principal\' o
+        \'Books sort by category\'). Un cop has anat a la pantalla d\'una de les opcions, a la part superior dreta de la pantalla trobaràs una icona
+        d\'una lent. Si fas un click a sobre es desplegarà un menú de cerca on haurás d\'escriure el nom de l\'autor de qui vols saber els seus
+        llibres.
+    </string>
+
+    <string name="help_new">
+        Per crear un nou llibre el que has de fer es accedir a la opció \'New book\' del menú. Un cop entres a la pantalla de creació et trobaràs
+        un formulari a omplir. \n\n
+        **ATENCIÓ**: Per a poder crear un llibre correctament: has d\'omplir tots el camps per a poder crear un llibre; l\'any de l\'edició ha de ser
+        com a màxim l\'any actual(2017).
+    </string>
+
+    <string name="help_delete">
+        Per borrar un llibre el que has de fer és accedir a qualsevol de les dues primeres opcions del menú (\'Principal\' o
+        \'Books sort by category\'). Un cop has anat a la pantalla d\'una de les opcions, t\'apareixerà una llista de llibres. Fas un click a sobre
+        d\'aquell llibre que vols esborrar i selecciones l\'opció \'Delete\' del menú desplegable que et surt al fer click.\n\n
+        **ATENCIÓ**: També pots esborrar un llibre quan fas una cerca.
+    </string>
+
+    <string name="help_modifype">
+        Per borrar un llibre el que has de fer és accedir a qualsevol de les dues primeres opcions del menú (\'Principal\' o
+        \'Books sort by category\'). Un cop has anat a la pantalla d\'una de les opcions, t\'apareixerà una llista de llibres. Fas un click a sobre
+        d\'aquell llibre que vols editar l\'evaluació personal i selecciones l\'opció \'Change personal evaluation\' del menú desplegable que et surt
+        al fer click.\n\n
+        Et redirigirà a una nova pantalla on podràs modificar la teva evaluació seleccionanant una de les opcions donades
+        (\'Very good\', \'Good\', \'Ordinary\', \'Bad\', \'Very bad\') i guardant-la fent click sobre el botó \'Save\'.
+        Si vols tornar enrere sense guardar la modificació haurás de fer click al botó \'Cancel\'.\n\n
+        **ATENCIÓ**: També pots modificar l\'evaluació d\'un llibre quan fas una cerca.
+    </string>
+
+
+
 </resources>

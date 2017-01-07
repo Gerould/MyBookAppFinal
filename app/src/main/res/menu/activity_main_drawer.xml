@@ -5,7 +5,7 @@
         <item
             android:id="@+id/nav_main"
             android:icon="@drawable/ic_menu_recycler"
-            android:title="Books sort by title"
+            android:title="Principal"
             android:checked="true" />
         <item
             android:id="@+id/nav_recycler"
@@ -16,22 +16,13 @@
             android:icon="@drawable/ic_menu_add"
             android:title="New Book" />
         <item
-            android:id="@+id/nav_search"
-            android:icon="@drawable/ic_menu_search"
-            android:title="Search" />
+            android:id="@+id/nav_help"
+            android:icon="@drawable/ic_menu_help"
+            android:title="Help" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_menu_info_details"
+            android:title="About" />
     </group>
-
-    <item android:title="">
-        <menu>
-            <item
-                android:id="@+id/nav_help"
-                android:icon="@drawable/ic_menu_help"
-                android:title="Help" />
-            <item
-                android:id="@+id/nav_about"
-                android:icon="@drawable/ic_menu_info_details"
-                android:title="About" />
-        </menu>
-    </item>
 
 </menu>

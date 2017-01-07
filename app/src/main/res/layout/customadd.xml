@@ -6,140 +6,166 @@
     android:layout_height="match_parent"
     tools:context="com.example.direccio.myapplication.CustomaddActivity">
 
-    <Button
-        android:text="ADD"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/add"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:onClick="addData"/>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/title_name"
-        android:layout_alignBottom="@+id/title"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="41dp" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_alignBottom="@+id/author"
-        android:layout_alignEnd="@+id/title_name"
-        android:layout_marginEnd="12dp"
-        android:id="@+id/author_name" />
-
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_above="@+id/year"
-        android:layout_alignStart="@+id/title_name"
-        android:id="@+id/publisher_name" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_below="@+id/publisher_name"
-        android:layout_alignEnd="@+id/publisher_name"
-        android:layout_marginTop="20dp"
-        android:id="@+id/year_name" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/evaluation_name"
-        android:layout_marginTop="34dp"
-        android:layout_below="@+id/category"
-        android:layout_alignStart="@+id/year_name" />
-
-    <TextView
-        android:text="Evaluation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/evaluation"
-        android:layout_alignBaseline="@+id/evaluation_name"
-        android:layout_alignBottom="@+id/evaluation_name"
-        android:layout_alignStart="@+id/title" />
-
-    <TextView
-        android:text="Category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:id="@+id/category"
-        android:layout_below="@+id/year_name"
-        android:layout_alignStart="@+id/evaluation" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/category_name"
-        android:layout_alignBaseline="@+id/category"
-        android:layout_alignBottom="@+id/category"
-        android:layout_alignStart="@+id/evaluation_name" />
-
-    <TextView
-        android:text="Author"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="47dp"
-        android:id="@+id/author"
-        android:textSize="14sp"
-        android:layout_below="@+id/title"
-        android:layout_alignEnd="@+id/title" />
-
-    <TextView
-        android:text="Publisher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/publisher"
-        android:layout_alignBaseline="@+id/textView"
-        android:layout_alignBottom="@+id/textView"
-        android:layout_alignStart="@+id/author" />
-
-    <TextView
-        android:text="Publisher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:layout_below="@+id/author"
-        android:layout_alignStart="@+id/author"
-        android:layout_marginTop="39dp" />
-
-    <TextView
-        android:text="Year"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="37dp"
-        android:id="@+id/year"
-        android:layout_below="@+id/publisher"
-        android:layout_alignEnd="@+id/author" />
-
-    <TextView
-        android:text="Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="58dp"
-        android:id="@+id/title"
-        android:textColorLink="?attr/actionMenuTextColor"
-        android:textSize="14sp"
+        android:orientation="vertical"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_marginTop="20dp"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="  Title"
+                android:textStyle="bold"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/title"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:maxLength="25"
+                android:id="@+id/title_name"
+                android:textColorLink="?attr/actionMenuTextColor" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="  Author"
+                android:textStyle="bold"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/author"/>
+
+            <EditText
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:maxLength="25"
+                android:id="@+id/author_name"
+                android:layout_width="match_parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="  Publisher"
+                android:textStyle="bold"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/publisher"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:maxLength="25"
+                android:id="@+id/publisher_name" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="  Year"
+                android:textStyle="bold"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/year"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:id="@+id/year_name"
+                android:singleLine="true" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="  Category"
+                android:textStyle="bold"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/category"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:maxLength="15"
+                android:id="@+id/category_name"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="  Evaluation"
+                android:textStyle="bold"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/evaluation"/>
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="Name"
+                android:ems="10"
+                android:id="@+id/editText" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/lista"
+                android:textAlignment="center"
+                android:popupBackground="@drawable/background"
+                android:background="@drawable/background"
+                android:spinnerMode="dropdown"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:text="ADD"
+        android:layout_width="200dp"
+        android:id="@+id/add"
+        android:onClick="addData"
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="36dp"
+        android:layout_height="wrap_content" />
+
 
 </RelativeLayout>

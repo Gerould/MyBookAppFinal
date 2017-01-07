@@ -2,11 +2,18 @@ package com.example.direccio.myapplication;
 
 
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.SearchView;
+import android.text.Html;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,28 +25,31 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 
-public class Principal extends MainActivity {
+public class Principal extends MainActivity implements SearchView.OnQueryTextListener{
     private BookData bookData;
     private ListView listView;
     public static final int THIS_ACTIVITY = 1;
     private static int pos;
     private List<Book> values;
+    private List<Book> list;
+    private SearchView searchView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ll_titol);
-        setTitle("Books sort by title");
+        setTitle("Principal");
         checkMenuItem(1);
         bookData = new BookData(this);
         //ens permet llegir a la database
         bookData.open();
 
-       /* bookData.createBook("Miguel Strogoff", "Jules Verne");
-        bookData.createBook("Ulysses", "James Joyce");
-        bookData.createBook("Don Quijote", "Miguel de Cervantes");
-        bookData.createBook("Metamorphosis", "Kafka");*/
+       /*
+        bookData.createBook("Miguel Strogoff", "Jules Verne", "Santillana",2003,"Fantasy","Very Good");
+        bookData.createBook("Ulysses", "James Joyce","Planeta",1922,"Fiction","Bad");
+        bookData.createBook("Don Quijote", "Miguel de Cervantes","Juventud",1615,"Adventure","Ordinary");
+        bookData.createBook("Metamorphosis", "Kafka", "Franz Kafka",1915,"Story","Good");*/
 
         values = bookData.getAllBooks_title();
 
@@ -47,7 +57,6 @@ public class Principal extends MainActivity {
         // elements in a ListView
         listView = (ListView) findViewById(android.R.id.list);
         ArrayAdapter<Book> adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,values);
-        //adapter.addAll(values);
 
         listView.setAdapter(adapter);
         //adapter.notifyDataSetChanged();
@@ -58,10 +67,50 @@ public class Principal extends MainActivity {
                 showPopupMenu(view);
             }
         });
-
+        list = values;
     }
 
-    public void showPopupMenu(View v) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_items,menu);
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        searchView.setOnQueryTextListener(this);
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+
+        return false;
+    }
+
+    public void filter(List<Book> books) {
+        list = new ArrayList<>();
+        list.addAll(books);
+        ArrayAdapter<Book> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
+        if(list.isEmpty()) {
+            Toast toast = Toast.makeText(getApplicationContext(), "This author does not exist", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        newText = newText.toLowerCase();
+        List<Book> books = new ArrayList<>();
+        for(Book book : values) {
+            String author = book.getAuthor().toLowerCase();
+            if(author.contains(newText))
+                books.add(book);
+        }
+        filter(books);
+        return true;
+    }
+
+    public void showPopupMenu(final View v) {
         PopupMenu popup = new PopupMenu(this, v);
         MenuInflater inflater = popup.getMenuInflater();
         inflater.inflate(R.menu.popup_menu, popup.getMenu());
@@ -71,52 +120,40 @@ public class Principal extends MainActivity {
                 switch(item.getItemId()) {
                     case R.id.btn_canviar:
                         Intent intent = new Intent(getApplicationContext(), PersonalEvaluation.class);
-                        intent.putExtra("titulo_libro",values.get(pos).getTitle());
-                        intent.putExtra("id_libro",values.get(pos).getId());
+                        intent.putExtra("titulo_libro",list.get(pos).getTitle());
+                        intent.putExtra("id_libro",list.get(pos).getId());
+                        intent.putExtra("activity_anterior", "principal");
                         startActivity(intent);
                         return true;
                     case R.id.btn_eliminar:
-                        Toast.makeText(getBaseContext(), "eliminas "+  values.get(pos).getTitle(), Toast.LENGTH_SHORT).show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                        builder.setMessage(Html.fromHtml("Do you really want to delete " + "<b>"+ "\"" + list.get(pos).getTitle()+ "\"" + "</b>" + "?"));
+                        builder.setCancelable(true);
+                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Toast.makeText(getApplicationContext(), Html.fromHtml("<b>"+ "\"" + list.get(pos).getTitle()+ "\"" + "</b>" + " has been deleted"), Toast.LENGTH_SHORT).show();
+                                bookData = new BookData(v.getContext());
+                                bookData.open();
+                                bookData.deleteBook(bookData.getBook(list.get(pos).getId()));
+                                Intent intent = new Intent(v.getContext(), Principal.class);
+                                v.getContext().startActivity(intent);
+                                dialog.cancel();
+                            }
+                        });
+                        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Toast.makeText(getApplicationContext(), "Elimination canceled", Toast.LENGTH_SHORT).show();
+                                dialog.cancel();
+                            }
+                        });
+                        AlertDialog alert = builder.create();
+                        alert.show();
                         return true;
                     default: return false;
                 }
             }
         });
     }
-
-
-
-
-    // Basic method to add pseudo-random list of books so that
-    // you have an example of insertion and deletion
-
-    // Will be called via the onClick attribute
-    // of the buttons in main.xml
-   /* public void onClick(View view) {
-        @SuppressWarnings("unchecked")
-        ArrayAdapter<Book> adapter = (ArrayAdapter<Book>) listView.getAdapter();
-        Book book;
-        switch (view.getId()) {
-            case R.id.add:
-                String[] newBook = new String[] { "Miguel Strogoff", "Jules Verne", "Ulysses", "James Joyce", "Don Quijote", "Miguel de Cervantes", "Metamorphosis", "Kafka" };
-                int nextInt = new Random().nextInt(4);
-                // save the new book to the database
-                book = bookData.createBook(newBook[nextInt*2], newBook[nextInt*2 + 1]);
-
-                // After I get the book data, I add it to the adapter
-                adapter.add(book);
-                break;
-            case R.id.delete:
-                if (listView.getAdapter().getCount() > 0) {
-                    book = (Book) listView.getAdapter().getItem(0);
-                    bookData.deleteBook(book);
-                    adapter.remove(book);
-                }
-                break;
-        }
-        adapter.notifyDataSetChanged();
-    }*/
-    // Life cycle methods. Check whether it is necessary to reimplement them
 
 
     @Override

@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity
     public static final int ACTIVITY_3 = 3;
     public static final int ACTIVITY_4 = 4;
     public static final int ACTIVITY_5 = 5;
-    public static final int ACTIVITY_6 = 6;
     private NavigationView navigationView;
     private DrawerLayout drawer;
 
@@ -65,8 +64,8 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_new:
                 startActivity(new Intent(getApplicationContext(),CustomaddActivity.class));
                 break;
-            case R.id.nav_search:
-                startActivity(new Intent(getApplicationContext(),Cercar.class));
+            case R.id.nav_help:
+                startActivity(new Intent(getApplicationContext(),Help.class));
                 break;
         }
 
@@ -95,8 +94,8 @@ public class MainActivity extends AppCompatActivity
         if (activity == ACTIVITY_1) navigationView.setCheckedItem(R.id.nav_main);
         if (activity == ACTIVITY_2) navigationView.setCheckedItem(R.id.nav_recycler);
         if (activity == ACTIVITY_3) navigationView.setCheckedItem(R.id.nav_new);
-        if (activity == ACTIVITY_4) navigationView.setCheckedItem(R.id.nav_search);
-        if (activity == ACTIVITY_5) navigationView.setCheckedItem(R.id.nav_help);
-        if (activity == ACTIVITY_6) navigationView.setCheckedItem(R.id.nav_about);
+        if (activity == ACTIVITY_4) navigationView.setCheckedItem(R.id.nav_help);
+        if (activity == ACTIVITY_5) navigationView.setCheckedItem(R.id.nav_about);
     }
+
 }
